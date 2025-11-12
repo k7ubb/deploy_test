@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" type="text/css" href="/assets/style.css">
+<link rel="stylesheet" type="text/css" href="app.css">
+<link rel="manifest" href="app/manifest.json">
+<script src="https://cdn.jsdelivr.net/gh/k7ubb/exact-canvas@main/exact-canvas.js"></script>
+<script src="app/src/lib/items.js"></script>
+<script src="app/src/lib/bbcanvas.js"></script>
+<title>市町村麻雀練習ツール - bb.xrea.jp</title>
+</head>
+
+<body>
+<header>
+	<div><a href="/">bb.xrea.jp</a></div>
+</header>
+
+<main>
+	<div>
+		<h1>市町村麻雀練習ツール</h1>
+		<p>地歴エンターテイメント（<a href="https://x.com/chirekienter" target="_blank">@chirekienter</a>）さん発案の市町村麻雀を、ひとりで遊べるパズルゲームにしました。<br>
+		市町村を覚えたり、手組みや役作りを練習するのに活用してください。</p>
+
+		<div class="game_wrap">
+			<div id="game"></div>
+			<button id="fullscreen">フルスクリーンで表示</button>
+			<button id="close"><i class="fa-solid fa-xmark"></i></button>
+		</div>
+
+		<h2>操作方法</h2>
+		<ul>
+			<li>「市町村一覧を表示」ONで牌にマウスを乗せる (スマホでは長押し) と、 その牌を含む市町村の一覧が表示されます。</li>
+			<li>牌を河のあたりまでドラッグすると打牌できます。</li>
+			<li>「リーチ」をチェックした状態で牌を捨てるとリーチできます。<br>
+			<span style="color:#f00">テンパイしていなくてもリーチできます</span>が、手牌を入れ替えられなくなるので、テンパイを確認してからリーチしてください。</li>
+		</ul>
+
+		<h2>市町村麻雀とは?</h2>
+		<div class="columns">
+			<div>
+				<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">本日、地歴エンターテイメント(株)から新感覚の知的ボードゲーム「市町村麻雀」が発売開始されます。<br>136枚の牌の組み合わせで表現できる市町村の数はなんと600以上！<br>日本全国の市町村名に必要以上に詳しくなれる！<br>君も役満を上がって盛り上がろう！ <a href="https://t.co/KixE9gzwW8">pic.twitter.com/KixE9gzwW8</a></p>&mdash; 地歴エンターテイメント (@chirekienter) <a href="https://twitter.com/chirekienter/status/1774560937460256864?ref_src=twsrc%5Etfw">March 31, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+			</div>
+
+			<div>
+				<p>地歴エンターテイメント（<a href="https://x.com/chirekienter" target="_blank">@chirekienter</a>）さんのエイプリルフールネタが発端の、専用牌を組み合わせて市町村名を作るゲームです。</p>
+				<p>手牌すべてを市町村名の形にできればアガリです。<br>
+				<img src="hand.png" alt="アガリ形の例" style="max-width: 100%;"></p>
+				<p>通常の麻雀と異なり、メンツとなる牌の枚数は不定です。<b>「原村(長野県)」「関市(岐阜県)」「津市(三重県)」「坂町(広島県)」「原村(沖縄県)」</b>は、牌1枚だけでメンツを構成できます。</p>
+				<p>4文字で市町村名を構成する牌 (例: 「富」「士」「吉」「田」)を集めれば「カン」もできます。(※カンをしないと、4文字の市町村はメンツにはなりません。)</p>
+				<p>牌の上部の数字は、その牌を使っていくつの市町村が作れるかを示しています。</p>
+				<p>詳しいルール・市町村麻雀で作れる市町村の一覧は、地歴エンターテイメント（<a href="https://x.com/chirekienter" target="_blank">@chirekienter</a>）さんのTwitterからご確認ください。</p>
+
+				<h3>ドラについて</h3>
+				<p>ドラ表示から始まる代表的な市町村がドラになります (ドラ表示牌によっては、ドラがないこともあります)。画面左上に、ドラとなる市町村が表示されます。</p>
+
+				<h3>本ツールのアプリ (本家との違い)</h3>
+				<ul>
+					<li>ひとり麻雀なので、ポン・チーはできません。</li>
+					<li>ロンアガリのチャンスがないので、数字が10以上の牌にくっつけて、2文字の市町村をつくってもアガれます。</li>
+					<li>36枚目の捨て牌を捨てたところで終局です。</li>
+				</ul>
+			</div>
+		</div>
+
+		<h2>更新履歴</h2>
+		<p>2024-10-21 土庄町を離島判定に修正<br>
+		2024-10-08 役判定を修正 (地一色と断本州の重複・同一市町村の重複を不可に)<br>
+		2024-10-03 役判定を修正 (二槓子・四離島の飜数を修正、地一色の役判定を追加)<br>
+		2024-09-30 操作説明を追加<br>
+		2024-09-23 くっつき待ち制限機能追加<br>
+		2024-08-26 役判定を修正 (天和を4飜役に)<br>
+		2024-08-25 役判定を修正 (>5連泊等を役扱いに、清連泊の判定修正)<br>
+		2024-08-23 β版公開</p>
+
+		<input type="checkbox" class="open_flag" id="pwa_install_flag">
+		<div class="pwa_recommend">
+			<label class="flag" for="pwa_install_flag"><i class="fa-solid fa-xmark"></i></label>
+			<h3><i class="fa-solid fa-mobile-screen-button"></i> アプリをインストール</h3>
+			<ol id="install_android">
+				<li>Chromeで開く</li>
+				<li>アドレスバーの <span><i class="fa-solid fa-ellipsis-vertical"></i></span> をタップ</li>
+				<li><span>ホーム画面に追加</span> を選択</li>
+			</ol>
+			<ol id="install_iphone">
+				<li>Safariで開く</li>
+				<li>メニューバーの <span><i class="fa-solid fa-arrow-up-from-bracket"></i></span> をタップ</li>
+				<li><span>ホーム画面に追加 <i class="fa-regular fa-square-plus"></i></span> を選択</li>
+			</ol>
+		</div>
+	</div>
+</main>
+
+<footer>
+	<div><a href="https://bb.xrea.jp/">bb.xrea.jp</a></div>
+</footer>
+
+<script src="app/src/scene/menu.js"></script>
+<script src="app/src/scene/score.js"></script>
+<script src="app/src/scene/game.js"></script>
+
+<script src="app/src/draw/commonDraw.js"></script>
+<script src="app/src/draw/menuDraw.js"></script>
+<script src="app/src/draw/gameDraw.js"></script>
+<script src="app/src/draw/scoreDraw.js"></script>
+
+<script src="app/src/logic/gameLogic.js"></script>
+<script src="app/src/logic/scoreLogic.js"></script>
+
+<script src="app/src/data.js"></script>
+<script src="app/src/main.js"></script>
+<script>
+if (document.referrer === location.href + "app/") {
+	document.getElementsByClassName("game_wrap")[0].style.display = "none";
+} else if ("ontouchstart" in window) {
+	document.getElementById("pwa_install_flag").checked = true;
+	if (navigator.userAgent.includes("Android")) {
+		document.getElementById("install_android").style.display = "block";
+	} else {
+		document.getElementById("install_iphone").style.display = "block";
+	}
+}
+document.getElementById("fullscreen").onclick = () => {
+	document.body.className = "play";
+};
+document.getElementById("close").onclick = () => {
+	document.body.className = "";
+};
+if (!("ontouchstart" in window)) {
+	document.getElementById("fullscreen").style.visibility = "hidden";
+}
+</script>
+</body>
+</html>
