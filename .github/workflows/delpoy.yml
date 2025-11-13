@@ -1,8 +1,10 @@
+name: FTP Deploy
+
 on:
   push:
     branches:
       - main
-name: FTP Deploy
+
 jobs:
   web-deploy:
       name: Deploy
