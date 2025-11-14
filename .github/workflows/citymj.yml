@@ -18,17 +18,6 @@ jobs:
           path: citymj
           ref: main
 
-#      - name: Setup Node.js
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: '20'
-#
-#      - name: Build Frontend
-#        working-directory: ./frontend
-#        run: |
-#          npm ci
-#          npm run build
-
       - name: Prepare Deploy Directory
         run: |
           mkdir -p deploy/citymj
@@ -41,4 +30,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: deploy/citymj/
-          server-dir: ${{ format('{0}citymj/', secrets.FTP_SERVERDIR) }}
+          server-dir: /public_html/test.bb.xrea.jp/citymj/
