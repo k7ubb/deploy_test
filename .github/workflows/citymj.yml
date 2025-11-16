@@ -8,9 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout Frontend
+      - name: Checkout citymj
         uses: actions/checkout@v4
         with:
           repository: k7ubb/citymj
@@ -18,12 +17,12 @@ jobs:
           path: citymj
           ref: main
 
-      - name: Prepare Deploy Directory
+      - name: Prepare citymj deploy
         run: |
           mkdir -p deploy/citymj
           cp -r citymj/* deploy/citymj
 
-      - name: FTP Deploy
+      - name: FTP deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
